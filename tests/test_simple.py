@@ -9,8 +9,7 @@ class MakoPluginTestCase(TempDirMixin, unittest.TestCase):
     def do_mako_coverage(self, template, context={}):
         template_dir = self.make_temp_dir("mako_template")
         maktem = mako.template.Template(filename=template, module_directory=template_dir)
-        # timid=True here just because the plugin code is in .py, not in .c yet.
-        cov = coverage.Coverage(timid=True, source=["."])
+        cov = coverage.Coverage(source=["."])
         cov.config["run:plugins"].append("mako_coverage")
         cov.config["mako_coverage:module_directory"] = template_dir
         cov.start()
