@@ -6,7 +6,7 @@ from mako.template import ModuleInfo
 import coverage.plugin
 
 
-class Plugin(coverage.plugin.CoveragePlugin):
+class MakoPlugin(coverage.plugin.CoveragePlugin):
     def __init__(self, options):
         self.module_directory = options.get("module_directory")
 

@@ -12,6 +12,6 @@ setup(
     packages=['mako_coverage'],
     install_requires=[
         'Mako >= 1.0',
-        'coverage >= 4.0a5',
+        'coverage >= 4.0a7',
     ],
 )
