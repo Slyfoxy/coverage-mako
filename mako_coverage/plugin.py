@@ -22,7 +22,7 @@ class FileTracer(coverage.plugin.FileTracer):
         if 0:
             for i, line in enumerate(py_source.splitlines(), start=1):
                 print "%3d: %s" % (i, line)
-        self.metadata = ModuleInfo.get_module_source_metadata(py_source, full_line_map=True)
+        self.metadata = ModuleInfo.get_module_source_metadata(py_source)#, full_line_map=True)
         if 0:
             print self.metadata
 
@@ -30,8 +30,7 @@ class FileTracer(coverage.plugin.FileTracer):
         return self.metadata["filename"]
 
     def line_number_range(self, frame):
-        # full_line_map is 1-indexed.
-        lineno = self.metadata["full_line_map"][frame.f_lineno-1]
+        lineno = self.metadata["line_map"].get(frame.f_lineno, -1)
         if 0:
             print "range: %r -> %r" % (frame.f_lineno, lineno)
         if lineno == 0:

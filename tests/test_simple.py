@@ -6,7 +6,21 @@ import mako.template
 from coverage.test_helpers import TempDirMixin
 
 class MakoPluginTestCase(TempDirMixin, unittest.TestCase):
+    """Base class for tests of the Mako coverage.py plugin."""
+
     def do_mako_coverage(self, template, context={}):
+        """Run a Mako coverage test.
+
+        Args:
+            template (str): the text of the template.
+            context (dict): data for the template.
+
+        Returns:
+            A tuple: (rendered_text, line_data)
+            rendered_text: the rendered text.
+            line_data: a list of line numbers executed.
+
+        """
         template_dir = self.make_temp_dir("mako_template")
         maktem = mako.template.Template(filename=template, module_directory=template_dir)
         cov = coverage.Coverage(source=["."])
