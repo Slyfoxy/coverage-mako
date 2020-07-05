@@ -3,12 +3,14 @@ import os.path, unittest
 import coverage
 import mako.template
 
+from coverage.backunittest import TestCase
 from coverage.test_helpers import TempDirMixin
 
-class MakoPluginTestCase(TempDirMixin, unittest.TestCase):
+
+class MakoPluginTestCase(TempDirMixin, TestCase):
     """Base class for tests of the Mako coverage.py plugin."""
 
-    def do_mako_coverage(self, template, context={}):
+    def do_mako_coverage(self, template, context=None):
         """Run a Mako coverage test.
 
         Args:
@@ -21,6 +23,7 @@ class MakoPluginTestCase(TempDirMixin, unittest.TestCase):
             line_data: a list of line numbers executed.
 
         """
+        context = context or {}
         template_dir = self.make_temp_dir("mako_template")
         maktem = mako.template.Template(filename=template, module_directory=template_dir)
         cov = coverage.Coverage(source=["."])
@@ -30,7 +33,7 @@ class MakoPluginTestCase(TempDirMixin, unittest.TestCase):
         text = maktem.render(**context)
         cov.stop()
         cov.save()
-        line_data = cov.data.line_data()[os.path.realpath(template)]
+        line_data = cov.get_data().line_data()[os.path.realpath(template)]
         return text, line_data
 
 

@@ -1,7 +1,7 @@
-Mako Coverage Plugin
-====================
+#Mako Coverage Plugin
 
-A coverage.py plugin to measure the coverage of Mako templates.
+
+Fork of plugin to measure the coverage of Mako templates.
 
 Measurement is implemented, reporting is not.
 
